@@ -85,11 +85,10 @@ exports.diagnose_get_patient = (req, res, next) => {
     Diagnose.find({ patientID: id })
         .exec()
         .then(result => {
-            console.log('From database', result);
             if (result) {
                 return res.status(200).json(result);
             } else {
-                res.status(404).json({
+                return res.status(404).json({
                     message: 'Not found'
                 });
             }
@@ -129,7 +128,6 @@ exports.diagnose_get_One = (req, res, next) => {
     Diagnose.findById(id)
         .exec()
         .then(result => {
-            console.log('From database', result);
             if (result) {
                 return res.status(200).json({
                     diagnose: result
