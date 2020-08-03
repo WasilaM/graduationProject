@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const roles = require('../middleware/roles');
 const Diagnose = require('../models/diagnose');
 const formidable = require('formidable');
-const cloudinary = require('../config/cloudConfig')
 
 exports.diagnose_post = async(req, res, next) => {
     console.log(req.file);
@@ -35,7 +34,9 @@ exports.diagnose_post = async(req, res, next) => {
         });
 
         if(files.radioImage){
-            const { secure_url, err } = await  cloudinary.cloudinaryUpload(files.radioImage.path);
+            const { secure_url, err } = await toImgUrl.toImgUrl(
+              files.radioImage.path
+            );
             if(err) {
                 console.error(err);
                 return res.status(400).json(err);
@@ -45,7 +46,7 @@ exports.diagnose_post = async(req, res, next) => {
 
         
         if (files.analysisImage) {
-          const { secure_url, err } = await cloudinary.cloudinaryUpload(
+          const { secure_url, err } = await toImgUrl.toImgUrl(
             files.analysisImage.path
           );
           if (err) {
