@@ -100,7 +100,6 @@ exports.diagnose_get_patient = (req, res, next) => {
                 error: err
             });
         });
-    retu
 }
 
 /*exports.diagnose_patch = (req, res, next) => {
