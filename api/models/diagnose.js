@@ -5,10 +5,8 @@ const diagnoseSchema = mongoose.Schema({
     diagnoseName: { type: String },
     diagnoseDesc: { type: String },
     date: { type: String },
-    medicine: [{
-        medicineName: { type: String },
-        dosage: { type: String }
-    }],
+    medicineName: { type: String },
+    dosage: { type: String },
     radioImage: [{ type: String }],
     radioName: [{ type: String }],
     radioDesc: [{ type: String }],
