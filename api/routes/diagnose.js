@@ -25,11 +25,11 @@ const uploads = multer({ storage: storage });
 router.use(authenticate);
 
 router.post('/', authorize([roles.DOCTOR]), uploads.single('radioImage'), diagnoseController.diagnose_post);
-router.get('/diagnose/patient/:patientID', authorize([roles.PATIENT]), diagnoseController.diagnose_get_patient);
-router.get('/diagnose/:diagnoseID', authorize([roles.PATIENT]), diagnoseController.diagnose_get_One);
-router.get('/diagnose/doctor/:doctorID', authorize([roles.DOCTOR]), diagnoseController.diagnose_get_patient_doctor);
-router.get('/diagnose/:patientID/:doctorID', authorize([roles.PATIENT]), diagnoseController.diagnose_get_patient_doctor);
-router.get('/diagnose/drug/:patientID', authorize([roles.PATIENT]), diagnoseController.diagnose_get_drug);
-router.get('/diagnose/radiology/:patientID', authorize([roles.PATIENT]), diagnoseController.diagnose_get_radiology);
+router.get('/patient/:patientID', authorize([roles.PATIENT]), diagnoseController.diagnose_get_patient);
+router.get('/:diagnoseID', authorize([roles.PATIENT]), diagnoseController.diagnose_get_One);
+router.get('/doctor/:doctorID', authorize([roles.DOCTOR]), diagnoseController.diagnose_get_patient_doctor);
+router.get('/:patientID/:doctorID', authorize([roles.PATIENT]), diagnoseController.diagnose_get_patient_doctor);
+router.get('/drug/:patientID', authorize([roles.PATIENT]), diagnoseController.diagnose_get_drug);
+router.get('/radiology/:patientID', authorize([roles.PATIENT]), diagnoseController.diagnose_get_radiology);
 
 module.exports = router;
