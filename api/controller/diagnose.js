@@ -36,9 +36,7 @@ exports.diagnose_post = async(req, res, next) => {
                     radioName: result.radioName,
                     radioDesc: result.radioDesc,
                     patientID: result.patientID,
-                    doctorID: result.doctorID,
-                    analysisName: result.analysisName,
-                    analysisDesc: result.analysisDesc
+                    doctorID: result.doctorID
                 }
             })
         })
@@ -87,7 +85,7 @@ exports.diagnose_get_patient = (req, res, next) => {
         .then(result => {
             console.log('From database', result);
             if (result) {
-                return res.status(200).json(result);
+                res.status(200).json(result);
             } else {
                 res.status(404).json({
                     message: 'Not found'
