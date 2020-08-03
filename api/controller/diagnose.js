@@ -82,7 +82,7 @@ exports.diagnose_post = async(req, res, next) => {
 
 exports.diagnose_get_patient = (req, res, next) => {
     const id = req.params.patientID;
-    Diagnose.find({ patientID: id })
+    Diagnose.findById(id)
         .exec()
         .then(result => {
             if (result) {
