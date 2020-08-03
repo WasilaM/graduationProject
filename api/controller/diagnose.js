@@ -34,29 +34,21 @@ exports.diagnose_post = async(req, res, next) => {
         });
 
         if(files.radioImage){
-            const { secure_url, err } = await toImgUrl.toImgUrl(
-              files.radioImage.path
-            );
+            diagnose.radioImage = await toImgUrl.toImgUrl(files.radioImage.path);
+        
             if(err) {
                 console.error(err);
                 return res.status(400).json(err);
             }
-            diagnose.radioImage = secure_url;
         }
 
-        
         if (files.analysisImage) {
-          const { secure_url, err } = await toImgUrl.toImgUrl(
-            files.analysisImage.path
-          );
+          diagnose.analysisImage = await toImgUrl.toImgUrl(files.analysisImage.path);
           if (err) {
             console.error(err);
             return res.status(400).json(err);
           }
-          diagnose.analysisImage = secure_url;
         }
-
-
 
         diagnose.save()
             .then(result => {
