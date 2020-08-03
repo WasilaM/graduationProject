@@ -87,7 +87,7 @@ exports.diagnose_get_patient = (req, res, next) => {
         .then(result => {
             console.log('From database', result);
             if (result) {
-                res.status(200).json(result);
+                return res.status(200).json(result);
             } else {
                 res.status(404).json({
                     message: 'Not found'
@@ -100,6 +100,7 @@ exports.diagnose_get_patient = (req, res, next) => {
                 error: err
             });
         });
+    retu
 }
 
 /*exports.diagnose_patch = (req, res, next) => {
