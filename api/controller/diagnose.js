@@ -36,7 +36,9 @@ exports.diagnose_post = async(req, res, next) => {
                     radioName: result.radioName,
                     radioDesc: result.radioDesc,
                     patientID: result.patientID,
-                    doctorID: result.doctorID
+                    doctorID: result.doctorID,
+                    analysisName: result.analysisName,
+                    analysisDesc: result.analysisDesc
                 }
             })
         })
