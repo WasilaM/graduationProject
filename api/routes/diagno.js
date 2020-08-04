@@ -3,12 +3,8 @@ const router = express.Router();
 const multer = require('multer');
 const crypto = require('crypto');
 const mime = require('mime');
-const authorize = require('../middleware/authorize');
-const authonticate = require('../middleware/authenticate');
-const roles = require('../middleware/roles');
 
 const diagnoController = require('../controller/diagno');
-const route = require('./diagnose');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
