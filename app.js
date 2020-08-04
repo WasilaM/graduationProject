@@ -13,6 +13,7 @@ const clinicRoute = require('./api/routes/clinic');
 const appointRoute = require('./api/routes/appoint');
 const adminRoute = require('./api/routes/admin');
 const diagnoseRoute = require('./api/routes/diagnose');
+const diagnoRoute = require('./api/routes/diagno');
 
 mongoose.connect(
         "mongodb+srv://GraduationProject:" +
@@ -46,5 +47,6 @@ app.use('/clinic', clinicRoute);
 app.use('/appoint', appointRoute);
 app.use('/admin', adminRoute);
 app.use('/diagnose', diagnoseRoute);
+app.use('/diagno', diagnoRoute);
 
 module.exports = app;
