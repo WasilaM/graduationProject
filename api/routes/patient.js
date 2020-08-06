@@ -37,4 +37,6 @@ router.patch('/:patientID', uploads.single('patientImage'), patientController.pa
 
 router.delete('/:patientID', patientController.patient_delete);
 
+router.post('/doctor', patientController.find_doctor);
+
 module.exports = router;

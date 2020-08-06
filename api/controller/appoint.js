@@ -116,7 +116,8 @@ exports.appoint_get_patient = (req, res, next) => {
 exports.appoint_get_doctor = (req, res, next) => {
     const id = req.params.doctorID;
     Appoint.find({ doctorID: id })
-        .exec()
+
+    .exec()
         .then(result => {
             console.log("From database", result);
             if (result) {

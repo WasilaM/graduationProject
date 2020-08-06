@@ -4,6 +4,7 @@ const toImgUrl = require('../utils/index');
 const Patient = require('../models/patient');
 const bcrypt = require('bcrypt');
 const roles = require('../middleware/roles');
+const Doctor = require('../models/doctor');
 
 exports.patient_post_signup = (req, res, next) => {
     console.log(req.file);
@@ -230,6 +231,28 @@ exports.patient_delete = (req, res, next) => {
                     url: 'http://localhost:3000/patient'
                 }
             });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+}
+
+exports.find_doctor = (req, res, next) => {
+    Doctor.find({ firstName: req.body.firstName, lastName: req.body.lastName })
+        .exec()
+        .then(result => {
+            if (result) {
+                return res.status(200).json({
+                    searchedDoctor: result
+                });
+            } else {
+                return res.status(404).json({
+                    message: 'Not found'
+                });
+            }
         })
         .catch(err => {
             console.log(err);
