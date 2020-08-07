@@ -4,7 +4,7 @@ const toImgUel = require('../utils/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const roles = require('../middleware/roles');
-const clinic = require('../models/clinic');
+const Clinic = require('../models/clinic');
 
 exports.doctor_post_signup = async(req, res, next) => {
     console.log(req.file);
@@ -254,6 +254,32 @@ exports.doctor_delete = (req, res, next) => {
             console.log(err);
             res.status(500).json({
                 error: err
+            });
+        });
+}
+
+exports.get_clinic_doctor = (req, res, next) => {
+    const id = req.params.doctorID
+    Clinic.findById(id)
+        .exec()
+        .then(result => {
+            if (result) {
+                return res.status(200).json({
+                    statusCode: 200,
+                    ClinicForDoctor: result
+                });
+            } else {
+                return res.status(404).json({
+                    statusCode: 404,
+                    message: 'Not found'
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).json({
+                statusCode: 500,
+                error: err.message
             });
         });
 }

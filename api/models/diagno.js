@@ -13,7 +13,8 @@ const diagnoSchema = mongoose.Schema({
     analysisName: { type: String },
     analysisDesc: { type: String },
     patientID: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' },
-    doctorID: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' }
+    doctorID: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' },
+    diagnoNum: { type: String }
 });
 
 module.exports = mongoose.model('Diagno', diagnoSchema);

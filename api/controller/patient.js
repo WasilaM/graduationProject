@@ -13,12 +13,14 @@ exports.patient_post_signup = (req, res, next) => {
         .then(patient => {
             if (patient.length >= 1) {
                 return res.status(409).json({
+                    statusCode: 409,
                     message: 'Mail exists'
                 });
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     if (err) {
                         return res.status(500).json({
+                            statusCode: 500,
                             error: err
                         });
                     } else {
@@ -31,7 +33,8 @@ exports.patient_post_signup = (req, res, next) => {
                         patient.save()
                             .then(result => {
                                 console.log(result);
-                                return res.status(201).json({
+                                return res.status(200).json({
+                                    statusCode: 200,
                                     message: 'Patient account created',
                                     createdPatient: {
                                         id: result._id,
@@ -47,7 +50,8 @@ exports.patient_post_signup = (req, res, next) => {
                             .catch(err => {
                                 console.log(err);
                                 return res.status(500).json({
-                                    error: err
+                                    statusCode: 500,
+                                    message: err.message
                                 });
                             });
                     }
@@ -61,13 +65,14 @@ exports.patient_post_login = (req, res, next) => {
         .then(patient => {
             if (patient.length < 1) {
                 return res.status(404).json({
-                    message: 'Auth failed'
+                    message: 'Not found'
                 });
             }
             bcrypt.compare(req.body.password, patient[0].password, (err, result) => {
                 if (err) {
                     return res.status(404).json({
-                        message: 'Auth failed'
+                        statusCode: 404,
+                        message: err.message
                     });
                 }
                 if (result) {
@@ -78,12 +83,14 @@ exports.patient_post_login = (req, res, next) => {
                         },
                         process.env.JWT_KEY);
                     return res.status(200).json({
+                        statusCode: 200,
                         message: 'Auth success',
                         token: token,
                         _id: patient[0]._id
                     });
                 }
                 res.status(401).json({
+                    statusCode: 401,
                     message: 'Auth failed'
                 });
             });
@@ -91,7 +98,7 @@ exports.patient_post_login = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err
+                statusCode: 500
             });
         });
 }
@@ -159,6 +166,7 @@ exports.patient_get_one = (req, res, next) => {
             console.log("From database", doc);
             if (doc) {
                 res.status(200).json({
+                    statusCode: 200,
                     patient: doc,
                     request: {
                         type: 'GET',
@@ -167,6 +175,7 @@ exports.patient_get_one = (req, res, next) => {
                 });
             } else {
                 res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 })
             }
@@ -174,6 +183,7 @@ exports.patient_get_one = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });
@@ -225,6 +235,7 @@ exports.patient_delete = (req, res, next) => {
     Patient.remove({ _id: id }).exec()
         .then(result => {
             res.status(200).json({
+                statusCode: 200,
                 message: 'Patient account deleted',
                 request: {
                     type: 'POST',
@@ -235,7 +246,7 @@ exports.patient_delete = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err
+                statusCode: 500
             });
         });
 }

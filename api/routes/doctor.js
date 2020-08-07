@@ -24,6 +24,7 @@ const uploads = multer({ storage: storage });
 
 router.post('/login', doctorController.doctor_post_login);
 router.get('/:doctorID', doctorController.doctor_get_one);
+router.get('/clinic/:doctorID', doctorController.get_clinic_doctor);
 
 router.use(authenticate);
 

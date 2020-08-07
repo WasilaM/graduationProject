@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const comperssion = require('compression');
 require('express-async-errors');
+const cors = require('cors');
 
 const patientRoute = require('./api/routes/patient');
 const doctorRoute = require('./api/routes/doctor');
@@ -23,7 +24,7 @@ mongoose.connect(
 app.use(morgan('dev'));
 
 app.use(express.static('patientUploads'));
-
+app.use(cors());
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 

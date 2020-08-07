@@ -19,7 +19,8 @@ exports.appoint_post = (req, res, next) => {
     appoint.save()
         .then(result => {
             console.log(result);
-            return res.status(201).json({
+            return res.status(200).json({
+                statusCode: 200,
                 message: 'Appointement created',
                 createdAppoint: {
                     _id: result._id,
@@ -36,6 +37,7 @@ exports.appoint_post = (req, res, next) => {
         .catch(err => {
             console.log(err);
             return res.status(500).json({
+                statusCode: 500,
                 error: err
             })
         });
@@ -47,6 +49,7 @@ exports.appoint_get_all = (req, res, next) => {
         .then(result => {
             console.log(result);
             res.status(200).json({
+                statusCode: 200,
                 appoint: result.map(result => {
                     return {
                         _id: result._id,
@@ -64,6 +67,7 @@ exports.appoint_get_all = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });
@@ -76,9 +80,13 @@ exports.appoint_get_one_appoint = (req, res, next) => {
         .then(result => {
             console.log('From database', result);
             if (result) {
-                res.status(200).json(result);
+                res.status(200).json({
+                    statusCode: 200,
+                    appoint: result
+                });
             } else {
                 res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 })
             }
@@ -86,6 +94,7 @@ exports.appoint_get_one_appoint = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });
@@ -98,9 +107,13 @@ exports.appoint_get_patient = (req, res, next) => {
         .then(result => {
             console.log('From database', result);
             if (result) {
-                res.status(200).json(result);
+                res.status(200).json({
+                    statusCode: 200,
+                    patient: result
+                });
             } else {
                 res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 })
             }
@@ -108,6 +121,7 @@ exports.appoint_get_patient = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });
@@ -116,14 +130,17 @@ exports.appoint_get_patient = (req, res, next) => {
 exports.appoint_get_doctor = (req, res, next) => {
     const id = req.params.doctorID;
     Appoint.find({ doctorID: id })
-
-    .exec()
+        .exec()
         .then(result => {
             console.log("From database", result);
             if (result) {
-                res.status(200).json(result);
+                res.status(200).json({
+                    statusCode: 200,
+                    Doctor: result
+                });
             } else {
                 res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 });
             }
@@ -131,6 +148,7 @@ exports.appoint_get_doctor = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });
@@ -143,9 +161,13 @@ exports.appoint_get_clinic = (req, res, next) => {
         .then(result => {
             console.log("From database", result);
             if (result) {
-                res.status(200).json(result);
+                res.status(200).json({
+                    statusCode: 200,
+                    clinic: result
+                });
             } else {
                 res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 });
             }
@@ -153,6 +175,7 @@ exports.appoint_get_clinic = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });
@@ -169,6 +192,7 @@ exports.appoint_patch_doctor = (req, res, next) => {
         .then(result => {
             console.log(result);
             res.status(200).json({
+                statusCode: 200,
                 message: 'Appoint updated',
                 request: {
                     type: 'GET',
@@ -179,6 +203,7 @@ exports.appoint_patch_doctor = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });
@@ -195,6 +220,7 @@ exports.appoint_patch_patient = (req, res, next) => {
         .then(result => {
             console.log(result);
             res.status(200).json({
+                statusCode: 200,
                 message: 'Appoint updated',
                 request: {
                     type: 'GET',
@@ -205,6 +231,7 @@ exports.appoint_patch_patient = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });
@@ -215,6 +242,7 @@ exports.appoint_delete_doctor = (req, res, next) => {
     Appoint.remove({ _id: id }).exec()
         .then(result => {
             res.status(200).json({
+                statusCode: 200,
                 message: 'Appoint deleted',
                 request: {
                     type: 'POST',
@@ -225,6 +253,7 @@ exports.appoint_delete_doctor = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });
@@ -235,6 +264,7 @@ exports.appoint_delete_patient = (req, res, next) => {
     Appoint.remove({ _id: id }).exec()
         .then(result => {
             res.status(200).json({
+                statusCode: 200,
                 message: 'Appoint deleted',
                 request: {
                     type: 'POST',
@@ -245,6 +275,7 @@ exports.appoint_delete_patient = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });

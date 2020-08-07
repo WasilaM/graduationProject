@@ -19,12 +19,14 @@ exports.diagno_post = async(req, res, next) => {
         analysisDesc: req.body.analysisDesc,
         analysisName: req.body.analysisName,
         patientID: req.body.patientID,
-        doctorID: req.body.doctorID
+        doctorID: req.body.doctorID,
+        diagnoNum: req.body.diagnoNum
     });
     diagno.save()
         .then(result => {
             console.log(result);
             return res.status(200).json({
+                statusCode: 200,
                 message: 'Diagnose created',
                 createdDiagnose: {
                     id: result._id,
@@ -39,7 +41,8 @@ exports.diagno_post = async(req, res, next) => {
                     analysisName: result.analysisName,
                     analysisDesc: result.analysisDesc,
                     patientID: result.patientID,
-                    doctorID: result.doctorID
+                    doctorID: result.doctorID,
+                    diagnoNum: result.diagnoNum
                 }
             });
         })

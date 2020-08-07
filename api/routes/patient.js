@@ -25,8 +25,8 @@ const uploads = multer({ storage: storage });
 const patientController = require('../controller/patient.js');
 
 router.post('/signup', patientController.patient_post_signup);
-
 router.post('/login', patientController.patient_post_login);
+router.get('/search/:patientID', patientController.patient_get_one);
 
 router.use(authenticate);
 router.use(authorize([roles.PATIENT]));
