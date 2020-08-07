@@ -259,26 +259,25 @@ exports.doctor_delete = (req, res, next) => {
 }
 
 exports.get_clinic_doctor = (req, res, next) => {
-    const id = req.params.doctorID
-    Clinic.findById(id)
+    Clinic.find({ doctorID: req.body.doctorID })
         .exec()
         .then(result => {
             if (result) {
                 return res.status(200).json({
                     statusCode: 200,
-                    ClinicForDoctor: result
+                    searchedDoctor: result
                 });
             } else {
                 return res.status(404).json({
                     statusCode: 404,
                     message: 'Not found'
-                })
+                });
             }
         })
         .catch(err => {
             console.log(err);
-            return res.status(500).json({
-                statusCode: 500,
+            res.status(500).json({
+                statusCode: 200,
                 error: err.message
             });
         });

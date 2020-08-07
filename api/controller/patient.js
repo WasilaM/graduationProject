@@ -65,6 +65,7 @@ exports.patient_post_login = (req, res, next) => {
         .then(patient => {
             if (patient.length < 1) {
                 return res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 });
             }
@@ -98,63 +99,11 @@ exports.patient_post_login = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                statusCode: 500
+                statusCode: 500,
+                erppr: err.message
             });
         });
 }
-
-/* exports.patient_post = async(req, res, next) => {
-    console.log(req.file);
-    const patient = new Patient({
-        _id: new mongoose.Types.ObjectId(),
-        firstName: req.body.firstName,
-        middleName: req.body.middleName,
-        lastName: req.body.lastName,
-        birthDate: req.body.birthDate,
-        gender: req.body.gender,
-        nationalID: req.body.nationalID,
-        email: req.body.email,
-        job: req.body.job,
-        status: req.body.status,
-        number: req.body.number,
-        address: req.body.address,
-        government: req.body.government,
-        patientImage: await toImgUrl.toImgUrl(req.file)
-    });
-    patient.save()
-        .then(result => {
-            console.log(result);
-            res.status(201).json({
-                message: 'Patient account created',
-                createdPatient: {
-                    id: result._id,
-                    firstName: result.firstName,
-                    middleName: result.middleName,
-                    lastName: result.lastName,
-                    birthDate: result.birthDate,
-                    gender: result.gender,
-                    nationalID: result.nationalID,
-                    email: result.email,
-                    job: result.job,
-                    status: result.status,
-                    number: result.number,
-                    address: result.address,
-                    government: result.government,
-                    request: {
-                        type: 'GET',
-                        url: 'http://localhost:3000/patient/' + result._id
-                    }
-                }
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
-}
- */
 
 exports.patient_get_one = (req, res, next) => {
     const id = req.params.patientID;
@@ -184,7 +133,7 @@ exports.patient_get_one = (req, res, next) => {
             console.log(err);
             res.status(500).json({
                 statusCode: 500,
-                error: err
+                error: err.message
             });
         });
 }
@@ -204,32 +153,6 @@ exports.patient_patch = async(req, res, next) => {
     }
 };
 
-
-/*exports.patient_patch = async(req, res, next) => {
-    const id = req.params.patientID;
-    const updateOps = {};
-    if (req.files['patientImagr']) {
-        req.body.patientImage = await toImgurl
-    } 
-    /*Patient.update({ _id: id }, { $set: updateOps })
-        .exec()
-        .then(result => {
-            console.log(result);
-            res.status(200).json({
-                message: 'Patient account updated',
-                request: {
-                    type: 'Get',
-                    url: 'http://localhost:3000/patient/' + id
-                }
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });*/
-
 exports.patient_delete = (req, res, next) => {
     const id = req.params.patientID;
     Patient.remove({ _id: id }).exec()
@@ -246,21 +169,24 @@ exports.patient_delete = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                statusCode: 500
+                statusCode: 500,
+                error: err.message
             });
         });
 }
 
-exports.find_doctor = (req, res, next) => {
-    Doctor.find({ firstName: req.body.firstName, lastName: req.body.lastName })
+exports.find_doctor_name = (req, res, next) => {
+    Doctor.find({ firstName: req.body.firstName })
         .exec()
         .then(result => {
             if (result) {
                 return res.status(200).json({
+                    statusCode: 200,
                     searchedDoctor: result
                 });
             } else {
                 return res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 });
             }
@@ -268,7 +194,58 @@ exports.find_doctor = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err
+                statusCode: 200,
+                error: err.message
+            });
+        });
+}
+
+exports.find_doctor_speciality = (req, res, next) => {
+    Doctor.find({ speciality: req.body.speciality })
+        .exec()
+        .then(result => {
+            if (result) {
+                return res.status(200).json({
+                    statusCode: 200,
+                    searchedDoctor: result
+                });
+            } else {
+                return res.status(404).json({
+                    statusCode: 404,
+                    message: 'Not found'
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                statusCode: 200,
+                error: err.message
+            });
+        });
+}
+
+exports.find_doctor_governement = (req, res, next) => {
+    Doctor.find({ government: req.body.government })
+        .exec()
+        .then(result => {
+            if (result) {
+                return res.status(200).json({
+                    statusCode: 200,
+                    searchedDoctor: result
+                });
+            } else {
+                return res.status(404).json({
+                    statusCode: 404,
+                    message: 'Not found'
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                statusCode: 200,
+                error: err.message
             });
         });
 }

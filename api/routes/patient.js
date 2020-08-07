@@ -32,11 +32,10 @@ router.use(authenticate);
 router.use(authorize([roles.PATIENT]));
 
 router.get('/:patientID', patientController.patient_get_one);
-
 router.patch('/:patientID', uploads.single('patientImage'), patientController.patient_patch);
-
 router.delete('/:patientID', patientController.patient_delete);
-
-router.post('/doctor', patientController.find_doctor);
+router.post('/name/doctor', patientController.find_doctor_name);
+router.post('/speciality/doctor', patientController.find_doctor_speciality);
+router.post('/govern/doctor', patientController.find_doctor_governement);
 
 module.exports = router;
