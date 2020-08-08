@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 
 const Appoint = require('../models/appoint');
-const Doctor = require('../models/doctor');
-const Patient = require('../models/patient');
-const Clinic = require('../models/clinic');
 
 exports.appoint_post = (req, res, next) => {
     const appoint = new Appoint({
@@ -38,7 +35,7 @@ exports.appoint_post = (req, res, next) => {
             console.log(err);
             return res.status(500).json({
                 statusCode: 500,
-                error: err
+                error: err.message
             })
         });
 }
@@ -68,7 +65,7 @@ exports.appoint_get_all = (req, res, next) => {
             console.log(err);
             res.status(500).json({
                 statusCode: 500,
-                error: err
+                error: err.message
             });
         });
 }
@@ -95,7 +92,7 @@ exports.appoint_get_one_appoint = (req, res, next) => {
             console.log(err);
             res.status(500).json({
                 statusCode: 500,
-                error: err
+                error: err.message
             });
         });
 }
@@ -122,7 +119,7 @@ exports.appoint_get_patient = (req, res, next) => {
             console.log(err);
             res.status(500).json({
                 statusCode: 500,
-                error: err
+                error: err.message
             });
         });
 }
@@ -149,7 +146,7 @@ exports.appoint_get_doctor = (req, res, next) => {
             console.log(err);
             res.status(500).json({
                 statusCode: 500,
-                error: err
+                error: err.message
             });
         });
 }
@@ -176,7 +173,7 @@ exports.appoint_get_clinic = (req, res, next) => {
             console.log(err);
             res.status(500).json({
                 statusCode: 500,
-                error: err
+                error: err.message
             });
         });
 }
@@ -204,7 +201,7 @@ exports.appoint_patch_doctor = (req, res, next) => {
             console.log(err);
             res.status(500).json({
                 statusCode: 500,
-                error: err
+                error: err.message
             });
         });
 }
@@ -232,7 +229,7 @@ exports.appoint_patch_patient = (req, res, next) => {
             console.log(err);
             res.status(500).json({
                 statusCode: 500,
-                error: err
+                error: err.message
             });
         });
 }
@@ -276,7 +273,7 @@ exports.appoint_delete_patient = (req, res, next) => {
             console.log(err);
             res.status(500).json({
                 statusCode: 500,
-                error: err
+                error: err.message
             });
         });
 }

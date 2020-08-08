@@ -61,17 +61,20 @@ exports.diagno_get_one = (req, res, next) => {
         .then(diagno => {
             if (!diagno) {
                 return res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 });
             }
             return res.status(200).json({
+                statusCode: 200,
                 Diagno: diagno
             });
         })
         .catch(err => {
             console.log(err);
             return res.status(500).json({
-                error: err
+                statusCode: 500,
+                error: err.message
             });
         });
 }
@@ -83,10 +86,12 @@ exports.diagno_get_patient = (req, res, next) => {
         .then(result => {
             if (result) {
                 return res.status(200).json({
+                    statusCode: 200,
                     Diagno: result
                 });
             } else {
                 return res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 });
             }
@@ -94,7 +99,8 @@ exports.diagno_get_patient = (req, res, next) => {
         .catch(err => {
             console.log(err);
             return res.status(500).json({
-                error: err
+                statusCode: 500,
+                error: err.message
             });
         });
 }
@@ -108,10 +114,12 @@ exports.diagno_get_drug = (req, res, next) => {
         .then(result => {
             if (result) {
                 return res.status(200).json({
+                    statusCode: 200,
                     Drug: result
                 });
             } else {
                 return res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 });
             }
@@ -119,7 +127,8 @@ exports.diagno_get_drug = (req, res, next) => {
         .catch(err => {
             console.log(err);
             return res.status(500).json({
-                error: err
+                statusCode: 500,
+                error: err.message
             });
         });
 }
@@ -132,10 +141,12 @@ exports.diagno_get_radio = (req, res, next) => {
         .then(result => {
             if (result) {
                 return res.status(200).json({
+                    statusCode: 200,
                     Radiology: result
                 });
             } else {
                 return res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 });
             }
@@ -143,7 +154,8 @@ exports.diagno_get_radio = (req, res, next) => {
         .catch(err => {
             console.log(err);
             return res.status(500).json({
-                error: err
+                statusCode: 500,
+                error: err.message
             });
         });
 }
@@ -156,10 +168,12 @@ exports.diagno_patient_doctor = (req, res, next) => {
         .then(result => {
             if (result) {
                 return res.status(200).json({
+                    statusCode: 200,
                     Diagno: result
                 });
             } else {
                 return res.status(404).json({
+                    statusCode: 404,
                     message: 'Not found'
                 });
             }
@@ -167,7 +181,8 @@ exports.diagno_patient_doctor = (req, res, next) => {
         .catch(err => {
             console.log(err);
             return res.status(500).json({
-                error: err
+                statusCode: 500,
+                error: err.message
             });
         });
 }

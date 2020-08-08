@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const Clinic = require('../models/clinic');
-const Doctor = require('../models/doctor');
 
 exports.clinic_post = (req, res, next) => {
     const clinic = new Clinic({
@@ -20,7 +19,8 @@ exports.clinic_post = (req, res, next) => {
     clinic.save()
         .then(result => {
             console.log(result);
-            res.status(201).json({
+            res.status(200).json({
+                statusCode: 200,
                 message: 'New clinic is added',
                 createdClinic: {
                     id: result._id,
@@ -44,6 +44,7 @@ exports.clinic_post = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
+                statusCode: 500,
                 error: err
             });
         });
@@ -56,10 +57,12 @@ exports.clinic_get_one = (req, res, next) => {
         .then(clinic => {
             if (!clinic) {
                 return res.status(404).json({
+                    statusCode: 404,
                     message: 'Clinic not found'
                 });
             }
             res.status(200).json({
+                statusCode: 200,
                 clinic: clinic,
                 request: {
                     type: 'GET',
@@ -70,7 +73,8 @@ exports.clinic_get_one = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err
+                statusCode: 500,
+                error: err.message
             });
         });
 }
@@ -86,6 +90,7 @@ exports.clinic_patch = (req, res, next) => {
         .then(result => {
             console.log(result);
             res.status(200).json({
+                statusCode: 200,
                 message: 'Clinic updated',
                 request: {
                     type: 'GET',
@@ -96,7 +101,8 @@ exports.clinic_patch = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err
+                statusCode: 500,
+                error: err.message
             });
         });
 }
@@ -107,6 +113,7 @@ exports.clinic_delete = (req, res, next) => {
         .then(result => {
             console.log(result);
             res.status(200).json({
+                statusCode: 200,
                 message: 'Clinic deleted',
                 request: {
                     type: 'GET',
@@ -117,7 +124,8 @@ exports.clinic_delete = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err
+                statusCode: 500,
+                error: err.message
             });
         });
 }
