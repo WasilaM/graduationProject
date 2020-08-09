@@ -219,7 +219,7 @@ exports.doctor_delete = (req, res, next) => {
 }
 
 exports.get_clinic_doctor = (req, res, next) => {
-    Clinic.find({ doctorID: req.body.doctorID })
+    Clinic.find({ id: req.body.doctorID })
         .exec()
         .then(result => {
             if (result) {

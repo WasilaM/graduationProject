@@ -143,11 +143,17 @@ exports.patient_patch = async(req, res, next) => {
         let id = req.params.patientID;
         let old = await Patient.findById(id);
         if (!old)
-            return res.status(404).end();
+            return res.status(404).json({
+                statusCode: 404,
+                message: 'Not found'
+            });
         if (req.file)
             req.body.patientImage = await toImgUrl.toImgUrl(req.file);
         let newDoc = await Patient.findByIdAndUpdate(id, req.body, { new: true });
-        return res.status(200).json(newDoc);
+        return res.status(200).json({
+            statusCode: 200,
+            patient: newDoc
+        });
     } catch (error) {
         next(error)
     }
